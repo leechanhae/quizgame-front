@@ -1,18 +1,20 @@
+'use client'
+
 import { useState } from "react"
 import axios from "axios"
 
-export default function Login() {
-    const [username, setUsername] = useState("")
+export default function Page() {
+    const [userid, setUserId] = useState("")
     const [password, setPassword] = useState("")
 
     const handleLogin = async (e: React.FormEvent) => {
         e.preventDefault()
         try {
             const res = await axios.post("http://localhost:8080/api/login", {
-                username,
+                userid,
                 password
             })
-            alert("로그인 성공: " + res.data.username)
+            alert("로그인 성공: " + res.data.userid)
             localStorage.setItem("token", res.data.token)
         } catch (err) {
             alert("로그인 실패: 아이디 또는 비밀번호 확인")
@@ -26,8 +28,8 @@ export default function Login() {
                 <input
                     type="text"
                     placeholder="아이디"
-                    value={username}
-                    onChange={(e) => setUsername(e.target.value)}
+                    value={userid}
+                    onChange={(e) => setUserId(e.target.value)}
                 />
                 <input
                     type="password"
@@ -35,7 +37,7 @@ export default function Login() {
                     value={password}
                     onChange={(e) => setPassword(e.target.value)}
                 />
-                <button type="submit">로그인</button>
+                <button type="submit" className="bg-blue-500 text-white font-semibold py-2 px-4 rounded-lg hover:bg-blue-600 transition-all">로그인</button>
             </form>
         </div>
     )
